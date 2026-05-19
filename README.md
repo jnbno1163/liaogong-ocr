@@ -3,6 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Win%20%7C%20Mac%20%7C%20Linux-lightgrey)]()
+[![ClawHub](https://img.shields.io/badge/ClawHub-ocr--dual--engine-orange)](https://clawhub.ai)
 
 **Dual-engine OCR combining easyocr and tesseract. 15 preprocessing chains with benchmarked accuracy. Extract text from screenshots, posters, phone photos, and documents.**
 
@@ -145,6 +146,18 @@ ocr-dual-engine/
 - **easyocr** 1.7+ (pip install, first run downloads ~100MB model)
 - **Pillow** 10.0+
 - **numpy** 1.24+
+
+---
+
+## 🔧 Use with OpenClaw · 在OpenClaw中使用
+
+Install directly as a ClawHub skill:
+
+```bash
+npx clawhub@latest install ocr-dual-engine
+```
+
+Trigger phrases: `OCR this image` / `extract text from image` / `图片转文字` / `OCR识别`
 
 ---
 
