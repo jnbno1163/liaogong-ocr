@@ -4,7 +4,7 @@ version: 1.0.0
 description: "廖工AI设计实战出品 · LiaoGong-OCR 双引擎OCR系统，easyocr+tesseract联合，15条预处理链（手机拍屏数字识别87%准确率）。适用：中文海报OCR、截图文字提取、英文文档转文字、手机拍照数字提取、图片批量转文字。Trigger phrases: OCR this image / extract text from / 图片转文字 / OCR识别 / 提取图片文字 / 图片文字识别 / 截图转文字 / 手机拍照提取文字"
 homepage: https://github.com/jnbno1163/liaogong-ocr
 license: MIT
-metadata: {"openclaw":{"emoji":"🔍","os":["win32","darwin","linux"],"requires":{"bins":["python"],"env":[]}}}
+metadata: {"clawdbot":{"emoji":"🔍","os":["win32","darwin","linux"],"requires":{"bins":["python"],"env":[]}}}
 ---
 
 # LiaoGong-OCR · 廖工双引擎OCR
