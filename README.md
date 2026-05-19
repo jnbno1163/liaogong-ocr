@@ -6,6 +6,8 @@
 
 **廖工AI设计实战出品** — easyocr + tesseract 双引擎OCR系统，15条预处理链含实测基准数据。从截图、海报、手机拍照、文档中优雅提取文字。
 
+**By LiaoGong AI** — Dual-engine OCR combining easyocr + tesseract with 15 benchmarked preprocessing chains. Extract text from screenshots, posters, phone photos, and documents.
+
 ---
 
 ## 🎯 为什么双引擎？
