@@ -130,6 +130,58 @@ class OCREngine:
 
         return result
 
+    def process_from_image(self, image, engine='tesseract', preprocess=None):
+        """OCR处理PIL Image对象（跳过文件读取步骤）。
+
+        Args:
+            image: PIL Image对象
+            engine: 'auto' | 'easyocr' | 'tesseract'
+            preprocess: None | 'phone'
+
+        Returns:
+            dict: {text, confidence, engine_used, preprocessing}
+        """
+        img = image
+        preprocess_applied = None
+        if preprocess == 'phone':
+            from .preprocess import chain_optimal_phone
+            img = chain_optimal_phone(img)
+            preprocess_applied = '最优电话拍照链 (反色+灰度+对比度2.5x)'
+
+        if engine == 'auto':
+            engine = 'tesseract'
+
+        result = {
+            'engine_used': engine,
+            'preprocessing': preprocess_applied,
+            'text': '',
+            'confidence': None,
+        }
+
+        if engine == 'easyocr':
+            reader = self._get_easyocr()
+            raw = reader.readtext(img)
+            lines, confs = [], []
+            for _bbox, text, conf in raw:
+                lines.append(text)
+                confs.append(conf)
+            result['text'] = '\n'.join(lines)
+            result['confidence'] = round(sum(confs) / len(confs), 3) if confs else None
+
+        elif engine == 'tesseract':
+            import pytesseract
+            t_path = self._find_tesseract()
+            if t_path:
+                pytesseract.pytesseract.tesseract_cmd = t_path
+            config = '--psm 6' if preprocess == 'phone' else '--psm 3'
+            try:
+                text = pytesseract.image_to_string(img, lang='eng', config=config)
+            except Exception:
+                text = pytesseract.image_to_string(img, config=config)
+            result['text'] = text.strip()
+
+        return result
+
 
 def main():
     """CLI 入口：liaogong-ocr 命令。"""
