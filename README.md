@@ -3,7 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Win%20%7C%20Mac%20%7C%20Linux-lightgrey)]()
-[![ClawHub](https://img.shields.io/badge/ClawHub-ocr--dual--engine-orange)](https://clawhub.ai)
+[![ClawHub](https://img.shields.io/badge/ClawHub-ocr--dual--engine-orange)](https://clawhub.ai/skill/ocr-dual-engine)
 
 **Dual-engine OCR combining easyocr and tesseract. 15 preprocessing chains with benchmarked accuracy. Extract text from screenshots, posters, phone photos, and documents.**
 
