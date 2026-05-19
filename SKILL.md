@@ -1,15 +1,10 @@
 ---
 name: ocr-dual-engine
-description: "Dual-engine OCR: easyocr + tesseract. 15 preprocessing chains, phone photo optimized, Chinese & English. Extract text from screenshots, posters, photos, and documents."
-triggers:
-  - "OCR"
-  - "extract text from image"
-  - "image to text"
-  - "OCR this image"
-  - "recognize text"
-  - "图片转文字"
-  - "提取图片文字"
-  - "OCR识别"
+version: 1.0.0
+description: "Dual-engine OCR: easyocr + tesseract with 15 preprocessing chains (87% digit accuracy). Use when user needs to OCR Chinese posters, extract text from screenshots, recognize English documents, extract numbers from phone photos, or batch convert images to text. Supports 图片转文字, 提取图片文字, OCR识别, text extraction from images, image to text conversion."
+homepage: https://github.com/jnbno1163/ocr-dual-engine
+license: MIT
+metadata: {"openclaw":{"emoji":"🔍","os":["win32","darwin","linux"],"requires":{"bins":["python"],"env":[]}}}
 ---
 
 # OCR Dual-Engine · 双引擎OCR
