@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 def test_engine_import():
     """OCR engine should import without loading models."""
-    from ocr_engine import OCREngine
+    from liaogong_ocr import OCREngine
     engine = OCREngine()
     assert engine._easyocr_reader is None  # lazy init
     assert engine._tesseract_path is None
@@ -18,7 +18,7 @@ def test_engine_import():
 
 def test_preprocess_import():
     """Preprocess module exports all chains."""
-    from preprocess import CHAINS, CHAIN_BENCHMARKS
+    from liaogong_ocr import CHAINS, CHAIN_BENCHMARKS
     assert len(CHAINS) >= 6
     assert 'optimal_phone' in CHAINS
     assert len(CHAIN_BENCHMARKS) >= 6
@@ -27,7 +27,7 @@ def test_preprocess_import():
 
 def test_tesseract_detection():
     """Tesseract should be found on this system."""
-    from ocr_engine import OCREngine
+    from liaogong_ocr import OCREngine
     engine = OCREngine()
     path = engine._find_tesseract()
     assert path is not None, "Tesseract not found — install it or check PATH"
@@ -37,7 +37,7 @@ def test_tesseract_detection():
 def test_preprocess_chains():
     """Each chain should accept and return a PIL Image."""
     from PIL import Image
-    from preprocess import CHAINS
+    from liaogong_ocr import CHAINS
 
     img = Image.new('RGB', (100, 100), color='gray')
     for name, chain_fn in CHAINS.items():

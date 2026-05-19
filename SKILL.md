@@ -1,36 +1,58 @@
 ---
-name: ocr-dual-engine
+name: liaogong-ocr
 version: 1.0.0
-description: "Dual-engine OCR: easyocr + tesseract with 15 preprocessing chains (87% digit accuracy). Use when user needs to OCR Chinese posters, extract text from screenshots, recognize English documents, extract numbers from phone photos, or batch convert images to text. Supports 图片转文字, 提取图片文字, OCR识别, text extraction from images, image to text conversion."
-homepage: https://github.com/jnbno1163/ocr-dual-engine
+description: "廖工AI设计实战出品 · LiaoGong-OCR 双引擎OCR系统，easyocr+tesseract联合，15条预处理链（手机拍屏数字识别87%准确率）。适用：中文海报OCR、截图文字提取、英文文档转文字、手机拍照数字提取、图片批量转文字。Trigger phrases: OCR this image / extract text from / 图片转文字 / OCR识别 / 提取图片文字 / 图片文字识别 / 截图转文字 / 手机拍照提取文字"
+homepage: https://github.com/jnbno1163/liaogong-ocr
 license: MIT
 metadata: {"openclaw":{"emoji":"🔍","os":["win32","darwin","linux"],"requires":{"bins":["python"],"env":[]}}}
 ---
 
-# OCR Dual-Engine · 双引擎OCR
+# LiaoGong-OCR · 廖工双引擎OCR
 
-Dual-engine OCR combining easyocr (Chinese complex scenes) and tesseract (English documents) with 15 benchmarked preprocessing chains.
+廖工AI设计实战出品 — easyocr + tesseract 双引擎OCR系统，15条可组合预处理链含实测基准数据。
 
-## Quick Start
+## 三种用法
+
+| 用法 | 命令/代码 | 场景 |
+|------|-----------|------|
+| **CLI工具** | `liaogong-ocr image.jpg` | 命令行一键提取文字 |
+| **Python库** | `from liaogong_ocr import OCREngine` | 集成到你的Python项目 |
+| **AI Agent** | `npx clawhub@latest install liaogong-ocr` | AI智能体自动触发OCR |
+
+## 快速开始
 
 ```bash
+# 安装系统依赖 tesseract（Windows用 winget install tesseract-ocr）
 pip install -r requirements.txt
-python ocr_engine.py image.jpg
+liaogong-ocr your_image.jpg
 ```
 
-## Three Modes
+## 引擎模式
 
-| Mode | Command | Best For |
-|------|---------|----------|
-| **Auto** | `python ocr_engine.py img.jpg` | General use, auto-detects engine |
-| **easyocr** | `python ocr_engine.py -e easyocr img.png` | Chinese posters, screenshots, complex layouts |
-| **tesseract** | `python ocr_engine.py -e tesseract doc.png` | English documents, clean text |
-| **Phone** | `python ocr_engine.py -p phone photo.jpg` | Phone photos of screens (87% digit acc.) |
+| 模式 | 命令 | 最适合 |
+|------|------|--------|
+| **自动** | `liaogong-ocr img.jpg` | 通用场景，自动选择引擎 |
+| **easyocr** | `liaogong-ocr -e easyocr img.png` | 中文海报、截图、复杂排版 |
+| **tesseract** | `liaogong-ocr -e tesseract doc.png` | 英文文档、白底黑字 |
+| **手机拍照** | `liaogong-ocr -p phone photo.jpg` | 手机拍屏幕（87%数字准确率） |
 
-## Use Cases
+## 预处理链（手机拍屏幕数字提取实测）
 
-- Extract Chinese text from posters and screenshots
-- Convert English documents to text at high speed
-- Extract numbers from phone photos of screens
-- Batch OCR processing for large image sets
-- Cross-validate OCR results with multiple preprocessing chains
+| 预处理链 | 数字准确率 | 速度 |
+|----------|-----------|------|
+| **optimal_phone** | **87%** | 快 |
+| grayscale_binary | 72% | 快 |
+| contrast_enhance | 65% | 快 |
+| sharpen | 55% | 快 |
+| clahe | 31% | 中 |
+| adaptive_binary | 18% | 慢 |
+
+## 系统要求
+
+- Python 3.8+
+- Tesseract（系统安装）
+- 首次运行 easyocr 需下载 ~100MB 模型
+
+---
+
+**廖工AI设计实战出品 · github.com/jnbno1163**

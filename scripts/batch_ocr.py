@@ -13,7 +13,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from ocr_engine import OCREngine
+from liaogong_ocr import OCREngine
 
 
 def main():

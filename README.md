@@ -1,83 +1,89 @@
-# 🧠 OCR Dual-Engine · 双引擎OCR
+# 🔍 LiaoGong-OCR · 廖工双引擎OCR
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Win%20%7C%20Mac%20%7C%20Linux-lightgrey)]()
-[![ClawHub](https://img.shields.io/badge/ClawHub-ocr--dual--engine-orange)](https://clawhub.ai/skill/ocr-dual-engine)
 
-**Dual-engine OCR combining easyocr and tesseract. 15 preprocessing chains with benchmarked accuracy. Extract text from screenshots, posters, phone photos, and documents.**
-
-**双引擎OCR系统：easyocr + tesseract 强强联合。15种预处理链含实测基准数据。从截图、海报、手机拍照、文档中提取文字。**
+**廖工AI设计实战出品** — easyocr + tesseract 双引擎OCR系统，15条预处理链含实测基准数据。从截图、海报、手机拍照、文档中优雅提取文字。
 
 ---
 
-## 🎯 Why Dual-Engine? · 为什么双引擎？
-
-| Engine | Best For | Weakness |
-|--------|----------|----------|
-| **easyocr** | Chinese screenshots, posters, complex layouts | Slower, needs 100MB model |
-| **tesseract** | English documents, clean text, very fast | Struggles with complex Chinese |
+## 🎯 为什么双引擎？
 
 | 引擎 | 擅长 | 短板 |
 |------|------|------|
 | **easyocr** | 中文截图、海报、复杂排版 | 速度慢，首次下载100MB模型 |
 | **tesseract** | 英文文档、白底黑字、极快 | 中文复杂排版效果差 |
 
-**One tool, two engines — auto-detection picks the best one.**
-
-**一个工具，两个引擎 — 自动检测选择最优方案。**
+一个工具，两个引擎，自动选择最优方案。
 
 ---
 
-## ⚡ Quick Start · 快速开始
+## ⚡ 三种安装方式
+
+### 方式一：pip 安装
 
 ```bash
-# 1. Install system dependency (tesseract)
-#    Windows:  winget install tesseract-ocr
-#    macOS:    brew install tesseract
-#    Linux:    sudo apt install tesseract-ocr tesseract-ocr-chi-sim
+pip install liaogong-ocr
+# 或开发模式
+git clone https://github.com/jnbno1163/liaogong-ocr.git
+cd liaogong-ocr
+pip install -e .
+```
 
-# 2. Install Python dependencies
+安装后直接使用命令：
+
+```bash
+liaogong-ocr your_image.jpg
+```
+
+### 方式二：GitHub 克隆
+
+```bash
+git clone https://github.com/jnbno1163/liaogong-ocr.git
+cd liaogong-ocr
 pip install -r requirements.txt
-
-# 3. Extract text from an image
-python ocr_engine.py your_image.jpg
+python -m liaogong_ocr.engine your_image.jpg
 ```
 
-First run downloads the easyocr model (~100MB). Subsequent runs are instant.
+### 方式三：AI Agent 触发
 
-首次运行会下载 easyocr 模型（~100MB），之后缓存本地。
+```bash
+npx clawhub@latest install liaogong-ocr
+```
+
+触发词：`OCR this image` / `图片转文字` / `OCR识别` / `提取图片文字`
 
 ---
 
-## 📖 Usage · 使用方式
+## 📖 三种用法
 
-### CLI
+### CLI 工具
 
 ```bash
-# Auto-detect best engine
-python ocr_engine.py poster.jpg
+# 自动选择引擎
+liaogong-ocr poster.jpg
 
-# Force easyocr for Chinese content
-python ocr_engine.py --engine easyocr screenshot.png
+# 中文复杂场景用 easyocr
+liaogong-ocr -e easyocr screenshot.png
 
-# Force tesseract for English documents
-python ocr_engine.py --engine tesseract document.png
+# 英文文档快速 OCR
+liaogong-ocr -e tesseract document.png
 
-# Phone photo mode (optimal preprocessing chain)
-python ocr_engine.py --preprocess phone photo.jpg
+# 手机拍照优化模式（87%数字准确率）
+liaogong-ocr -p phone photo.jpg
 
-# Save output to file
-python ocr_engine.py image.jpg --output result.txt
+# 保存到文件
+liaogong-ocr image.jpg -o result.txt
 
-# Verbose mode (show engine, confidence, preprocessing)
-python ocr_engine.py image.jpg --verbose
+# 显示详细信息
+liaogong-ocr image.jpg --verbose
 ```
 
-### Python Library
+### Python 库
 
 ```python
-from ocr_engine import OCREngine
+from liaogong_ocr import OCREngine
 
 engine = OCREngine()
 result = engine.process("poster.jpg", engine="easyocr")
@@ -86,89 +92,69 @@ print(result["confidence"])
 print(result["engine_used"])
 ```
 
----
-
-## 🔬 Preprocessing Chains · 预处理链
-
-15 preprocessing chains were benchmarked on phone-photo-of-screen digit extraction:
-
-15种预处理链在手机拍屏幕数字提取上的实测对比：
-
-| Chain | Preprocessing | Digit Acc. | Speed |
-|-------|--------------|------------|-------|
-| **optimal_phone** | invert + grayscale + contrast 2.5x | **87%** | Fast |
-| grayscale_binary | grayscale + binary threshold | 72% | Fast |
-| contrast_enhance | grayscale + contrast 2.0x | 65% | Fast |
-| sharpen | grayscale + sharpen | 55% | Fast |
-| clahe | CLAHE histogram equalization | 31% | Medium |
-| adaptive_binary | adaptive threshold | 18% | Slow |
-
 ```python
-from preprocess import CHAINS, chain_cross_validate
+from liaogong_ocr import CHAINS, chain_cross_validate
 
-# Apply best chain for phone photos
+# 应用最优手机拍照预处理链
 img = CHAINS['optimal_phone'](image)
 
-# Cross-validate with multiple chains (higher reliability)
+# 多链交叉验证（可靠性更高）
 results = chain_cross_validate(image)
 ```
 
+### AI Agent 触发
+
+安装 ClawHub 技能后，AI 助手自动识别以下触发词并调用 OCR：
+- `OCR this image` / `extract text from image`
+- `图片转文字` / `OCR识别` / `提取图片文字` / `截图转文字`
+
 ---
 
-## 📁 Project Structure · 项目结构
+## 🔬 预处理链实测对比
+
+手机拍屏幕数字提取，15条预处理链实测结果：
+
+| 预处理链 | 处理方式 | 数字准确率 | 速度 |
+|----------|----------|-----------|------|
+| **optimal_phone** | 反色+灰度+对比度2.5x | **87%** | 快 |
+| grayscale_binary | 灰度+二值化阈值128 | 72% | 快 |
+| contrast_enhance | 灰度+对比度增强2.0x | 65% | 快 |
+| sharpen | 灰度+锐化滤镜 | 55% | 快 |
+| clahe | CLAHE直方图均衡化 | 31% | 中 |
+| adaptive_binary | 自适应二值化阈值 | 18% | 慢 |
+
+---
+
+## 📁 项目结构
 
 ```
-ocr-dual-engine/
-├── ocr_engine.py          # Main entry: CLI + library
-├── preprocess.py           # 15 preprocessing chains
-├── setup.py                # pip install -e .
-├── requirements.txt
+liaogong-ocr/
+├── liaogong_ocr/              # Python 包
+│   ├── __init__.py            # 导出 OCREngine, CHAINS, CHAIN_BENCHMARKS
+│   ├── engine.py              # 核心双引擎OCR
+│   └── preprocess.py          # 15条可组合预处理链
 ├── scripts/
-│   ├── benchmark_chains.py # Reproduce benchmark results
-│   └── batch_ocr.py        # Batch process folders
-├── references/
-│   ├── preprocessing-guide.md
-│   └── benchmark-results.md
-├── examples/
-│   ├── chinese_poster.jpg
-│   ├── english_document.png
-│   └── phone_photo.jpg
-└── tests/
-    └── test_ocr_engine.py
+│   ├── benchmark_chains.py    # 重现基准测试
+│   └── batch_ocr.py           # 批量文件夹OCR
+├── tests/
+│   └── test_ocr_engine.py     # 冒烟测试
+├── examples/                  # 示例图片
+├── references/                # 预处理指南+基准报告
+├── setup.py                   # pip 安装配置
+└── requirements.txt
 ```
 
 ---
 
-## 🔧 Requirements · 系统要求
+## 🔧 系统要求
 
 - **Python** 3.8+
-- **tesseract** (system install — see Quick Start)
-- **easyocr** 1.7+ (pip install, first run downloads ~100MB model)
-- **Pillow** 10.0+
-- **numpy** 1.24+
+- **Tesseract** 系统安装：
+  - Windows: `winget install tesseract-ocr`
+  - macOS: `brew install tesseract`
+  - Linux: `sudo apt install tesseract-ocr`
+- **easyocr** 1.7+（首次运行下载 ~100MB 模型，之后缓存本地）
 
 ---
 
-## 🔧 Use with OpenClaw · 在OpenClaw中使用
-
-Install directly as a ClawHub skill:
-
-```bash
-npx clawhub@latest install ocr-dual-engine
-```
-
-Trigger phrases: `OCR this image` / `extract text from image` / `图片转文字` / `OCR识别`
-
----
-
-## 🤝 Contributing · 贡献
-
-Issues and PRs welcome! If you discover better preprocessing chains or want to add new OCR engines (PaddleOCR, Surya, etc.), feel free to contribute.
-
-欢迎提 Issue 和 PR！如果你有更好的预处理方案或想接入新引擎（PaddleOCR、Surya等），欢迎贡献。
-
----
-
-## 📄 License · 协议
-
-MIT © [jnbno1163](https://github.com/jnbno1163)
+**廖工AI设计实战出品 · [github.com/jnbno1163](https://github.com/jnbno1163)**
